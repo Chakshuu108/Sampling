@@ -1,0 +1,6 @@
+,Under_NearMiss,Over_SMOTE,Hybrid_SMOTETomek
+Ridge,21.55,80.6,82.33
+ExtraTree,39.66,87.93,83.62
+GradientBoost,33.19,98.28,98.28
+AdaBoost,40.95,98.71,98.28
+NaiveBayes,6.47,74.57,72.84
