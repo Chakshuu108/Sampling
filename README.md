@@ -28,34 +28,11 @@ Credit card fraud datasets are highly imbalanced — fraudulent transactions mak
 **File:** `Creditcard_data.csv`  
 **Target Column:** `Class` (0 = Legitimate ✅, 1 = Fraudulent 🚨)
 
-### 👀 Preview — `df.head()`
-
-<!-- INSERT: Table / screenshot of df.head() output here -->
-
-```
-...
-```
-
-**📐 Shape:** <!-- INSERT: df.shape output here, e.g. (10000, 31) -->
-
 ---
-
-## ⚖️ Class Distribution
-
-**Class Value Counts (normalized):**
-
-<!-- INSERT: Output of df["Class"].value_counts(normalize=True) here -->
-
-```
-...
-```
 
 ### 📊 Class Distribution Plot
 
-<!-- INSERT: countplot of Class distribution here -->
-
-![Class Distribution](images/class_distribution.png)
-
+<img width="463" height="393" alt="image" src="https://github.com/user-attachments/assets/36dfbf09-81c6-446a-894c-5ba6de749085" />
 ---
 
 ## ⚙️ Preprocessing
@@ -77,7 +54,7 @@ Credit card fraud datasets are highly imbalanced — fraudulent transactions mak
 
 <!-- INSERT: 2x2 subplot grid showing class distribution after each sampling method -->
 
-![Resampled Distributions](images/resampled_distributions.png)
+<img width="1189" height="790" alt="image" src="https://github.com/user-attachments/assets/655ee484-5cd9-4014-b997-97523ac0c3f7" />
 
 ---
 
@@ -97,7 +74,13 @@ Credit card fraud datasets are highly imbalanced — fraudulent transactions mak
 
 ### 🎯 Accuracy Table (%)
 
-<!-- INSERT: results_accuracy DataFrame table here -->
+
+Under_NearMiss	Over_SMOTE	Hybrid_SMOTETomek
+Ridge	21.55	80.6	82.33
+ExtraTree	16.81	87.93	84.05
+GradientBoost	34.05	98.28	98.28
+AdaBoost	38.79	98.71	98.28
+NaiveBayes	6.47	74.57	72.84
 
 ```
 ...
@@ -105,7 +88,12 @@ Credit card fraud datasets are highly imbalanced — fraudulent transactions mak
 
 ### 🏅 F1 Score Table (%)
 
-<!-- INSERT: results_f1 DataFrame table here -->
+	Under_NearMiss	Over_SMOTE	Hybrid_SMOTETomek
+Ridge	3.19	4.26	4.65
+ExtraTree	3.02	6.67	0.0
+GradientBoost	1.29	0.0	0.0
+AdaBoost	1.39	0.0	0.0
+NaiveBayes	1.81	3.28	3.08
 
 ```
 ...
@@ -123,7 +111,7 @@ Both tables are also exported as:
 
 <!-- INSERT: Seaborn heatmap of F1 scores here -->
 
-![F1 Score Heatmap](images/f1_heatmap.png)
+<img width="631" height="547" alt="image" src="https://github.com/user-attachments/assets/936e5293-d426-4bc6-808e-71af5ff9a5f6" />
 
 ---
 
@@ -142,17 +130,27 @@ pip install pandas numpy scikit-learn imbalanced-learn matplotlib seaborn
 
 ---
 
-## ▶️ How to Run
 
-```bash
-jupyter notebook Sampling.ipynb
-```
-
----
 
 ## 💡 Key Findings
 
-<!-- INSERT: Summary of best-performing model + sampling technique combination based on results -->
+### 🏆 Best Performing Models
+- **GradientBoost** and **AdaBoost** achieved the highest accuracy of **98.28%** and **98.71%** respectively under both `Over_SMOTE` and `Hybrid_SMOTETomek` — making them the top performers overall.
+- **NaiveBayes** struggled the most, with accuracy as low as **6.47%** under `Under_NearMiss`, indicating it is poorly suited for this imbalanced dataset regardless of sampling strategy.
+
+### 📉 Under-Sampling Hurts Performance
+- `Under_NearMiss` consistently produced the **worst results** across all models, with accuracies ranging from just **6.47% to 38.79%**. Aggressively removing majority class samples leads to significant loss of useful information.
+
+### 📈 Over-Sampling & Hybrid are Superior
+- `Over_SMOTE` and `Hybrid_SMOTETomek` delivered **dramatically better accuracy**, with most models crossing **80–98%**, showing that generating synthetic minority samples is far more effective than discarding majority samples.
+
+### 🌡️ F1 Score Tells a Different Story
+- Despite high accuracy, **F1 scores were surprisingly low** for most model-sampling combinations, with many registering **0.0** — particularly GradientBoost and AdaBoost under Over_SMOTE and Hybrid_SMOTETomek. This suggests these models may be **overpredicting the majority class**, inflating accuracy while missing actual fraud cases.
+- **ExtraTree + Over_SMOTE** achieved the highest F1 score of **6.7**, making it the best balance between precision and recall.
+- **Ridge Classifier** showed the most consistent (though modest) F1 scores across all three sampling methods, suggesting better generalization to the minority class.
+
+### ✅ Recommendation
+> For fraud detection, **F1 Score is a more meaningful metric than Accuracy** due to severe class imbalance. Based on F1 performance, **ExtraTree with Over_SMOTE** is the recommended combination, followed by **Ridge with Hybrid_SMOTETomek**.
 
 ```
 ...
