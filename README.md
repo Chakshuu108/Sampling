@@ -74,13 +74,14 @@ Credit card fraud datasets are highly imbalanced — fraudulent transactions mak
 
 ### 🎯 Accuracy Table (%)
 
+| Model | Under_NearMiss | Over_SMOTE | Hybrid_SMOTETomek |
+|---|---|---|---|
+| Ridge | 21.55 | 80.6 | 82.33 |
+| ExtraTree | 16.81 | 87.93 | 84.05 |
+| GradientBoost | 34.05 | 98.28 | 98.28 |
+| AdaBoost | 38.79 | 98.71 | 98.28 |
+| NaiveBayes | 6.47 | 74.57 | 72.84 |
 
-Under_NearMiss	Over_SMOTE	Hybrid_SMOTETomek
-Ridge	21.55	80.6	82.33
-ExtraTree	16.81	87.93	84.05
-GradientBoost	34.05	98.28	98.28
-AdaBoost	38.79	98.71	98.28
-NaiveBayes	6.47	74.57	72.84
 
 ```
 ...
@@ -88,12 +89,14 @@ NaiveBayes	6.47	74.57	72.84
 
 ### 🏅 F1 Score Table (%)
 
-	Under_NearMiss	Over_SMOTE	Hybrid_SMOTETomek
-Ridge	3.19	4.26	4.65
-ExtraTree	3.02	6.67	0.0
-GradientBoost	1.29	0.0	0.0
-AdaBoost	1.39	0.0	0.0
-NaiveBayes	1.81	3.28	3.08
+
+| Model | Under_NearMiss | Over_SMOTE | Hybrid_SMOTETomek |
+|---|---|---|---|
+| Ridge | 3.19 | 4.26 | 4.65 |
+| ExtraTree | 3.02 | 6.67 | 0.0 |
+| GradientBoost | 1.29 | 0.0 | 0.0 |
+| AdaBoost | 1.39 | 0.0 | 0.0 |
+| NaiveBayes | 1.81 | 3.28 | 3.08 |
 
 ```
 ...
@@ -149,9 +152,3 @@ pip install pandas numpy scikit-learn imbalanced-learn matplotlib seaborn
 - **ExtraTree + Over_SMOTE** achieved the highest F1 score of **6.7**, making it the best balance between precision and recall.
 - **Ridge Classifier** showed the most consistent (though modest) F1 scores across all three sampling methods, suggesting better generalization to the minority class.
 
-### ✅ Recommendation
-> For fraud detection, **F1 Score is a more meaningful metric than Accuracy** due to severe class imbalance. Based on F1 performance, **ExtraTree with Over_SMOTE** is the recommended combination, followed by **Ridge with Hybrid_SMOTETomek**.
-
-```
-...
-```
